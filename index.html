@@ -4,7 +4,20 @@
 <script src="jquery.min.js"></script>
 <script>
 $( document ).ready(() => {
-  $("#marquee").on("submit", (e) => {
+  $("form#torneo").on("submit", (e) => {
+    const url = $("input#id").val()
+    const regex = /^(?:https?:\/\/)?(?:challonge.com\/)?([a-z\d]{8})/;
+    const res = regex.exec(url);
+
+    if (!res || !res[1]) {
+      e.preventDefault();
+      alert("Link de torneo invalido");
+    } else {
+      $("input#id").val(res[1]);
+    }
+  })
+
+  $("form#marquee").on("submit", (e) => {
     e.preventDefault();
     const anuncio = $("textarea[name='marquee']").val();
     setCookie("anuncio", anuncio);
@@ -93,26 +106,26 @@ const setCookie = (name, val) => {
   <body>
     <div class="container">
       <div class="forms">
-      <div>
-      <form action="torneo.html" method="get">
-        <input type="text" name="id" />
-        <button>
-          Iniciar Torneo
-        </button>
-      </form>
-      </div>
-      <div>
-        <form id="marquee" action="">
-          <textarea name="marquee" rows="5" cols="80">
-          </textarea>
-          <div>
+        <div>
+          <form id="torneo" action="torneo.html" method="get">
+            <input type="text" id="id" name="id" />
             <button>
-              Guardar Anuncio
+              Iniciar Torneo
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
+        <div>
+          <form id="marquee" action="">
+            <textarea name="marquee" rows="5" cols="80">
+            </textarea>
+            <div>
+              <button>
+                Guardar Anuncio
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   </body>
 </html>

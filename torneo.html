@@ -11,10 +11,22 @@ $( document ).ready(() => {
   // -- Iframe
   const params = new URLSearchParams(location.search);
 
-  const ifOneUrl = params.get("id") + "/module?show_tournament_name=1";
+  const regex = /^(?:https?:\/\/)?(?:challonge.com\/)?([a-z\d]{8})/;
+  const pid = params.get("id") ?? "";
+
+  const res = regex.exec(pid);
+
+  if (!res || !res[1]) {
+    location.replace("/");
+    return;
+  }
+
+  const baseUrl = `https://challonge.com/${res[1]}`;
+
+  const ifOneUrl = baseUrl + "/module?show_tournament_name=1";
   $("#ifone").attr("src", ifOneUrl);
 
-  const ifTwoUrl = params.get("id") + "/module?&show_standings=1&show_live_status=0&tab=standings";
+  const ifTwoUrl = baseUrl + "/module?&show_standings=1&show_live_status=0&tab=standings";
   $("#iftwo").attr("src", ifTwoUrl);
 });
 
