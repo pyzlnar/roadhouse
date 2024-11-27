@@ -1,0 +1,140 @@
+<html>
+  <head>
+<title>Roadhouse TCG</title>
+<script src="jquery.min.js"></script>
+<script>
+$( document ).ready(() => {
+  const cookies = getCookies();
+  const anuncio = decodeURIComponent(cookies?.anuncio ?? "");
+  $("#promo").html(anuncio);
+
+  // -- Iframe
+  const params = new URLSearchParams(location.search);
+
+  const ifOneUrl = params.get("id") + "/module?show_tournament_name=1";
+  $("#ifone").attr("src", ifOneUrl);
+
+  const ifTwoUrl = params.get("id") + "/module?&show_standings=1&show_live_status=0&tab=standings";
+  $("#iftwo").attr("src", ifTwoUrl);
+});
+
+const getCookies = () => (
+  Object.fromEntries(document.cookie.split(";").map(s => s.split("=")))
+);
+</script>
+<style>
+@font-face {
+  font-family: gobold;
+  src: url(gobold/Gobold%20Regular.otf);
+}
+
+@font-face {
+  font-family: gobold;
+  src: url(gobold/Gobold%20Bold.otf);
+  font-weight: bold;
+}
+
+body {
+  background-color: #3a2242;
+}
+
+iframe {
+  border: 0;
+}
+
+#promo {
+  min-width: 100%;
+
+  position: fixed;
+  bottom: 32px;
+
+  font-family: gobold;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  white-space: pre;
+
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+
+  -moz-animation: marq 30s linear infinite;
+  -webkit-animation: marq 30s linear infinite;
+  animation: marq 30s linear infinite;
+}
+
+#ifone {
+  flex: 1 0 0;
+}
+
+#iftwo {
+  flex: 1 0 0;
+}
+
+@-moz-keyframes marq {
+  0% { -moz-transform: translateX(100%) }
+  100% { -moz-transform: translateX(100%) }
+}
+
+@-webkit-keyframes marq {
+  0% { -webkit-transform: translateX(100%) }
+  100% { -webkit-transform: translateX(100%) }
+}
+
+@keyframes marq {
+  0% {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  100% {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+
+  height: 100%;
+
+  & > * {
+    width: 50%;
+  }
+}
+
+.left {
+  flex: 1 0 0;
+  display: flex;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+</style>
+  </head>
+  <body>
+    <div id="promo">Hello</div>
+    <div class="container">
+      <div class="left">
+        <iframe id="ifone"></iframe>
+      </div>
+      <div class="right">
+        <iframe
+          style="min-height: 315px"
+          width="100%"
+          src="https://www.youtube.com/embed/7vSg48Kdx34?si=0T-J94SUqFjpbfL0"
+          title="YouTube video player"
+          frameborder="0"
+        >
+        </iframe>
+        <iframe id="iftwo"></iframe>
+      </div>
+    </div>
+  </body>
+</html>

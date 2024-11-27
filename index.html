@@ -1,0 +1,118 @@
+<html>
+  <head>
+<title>Roadhouse TCG</title>
+<script src="jquery.min.js"></script>
+<script>
+$( document ).ready(() => {
+  $("#marquee").on("submit", (e) => {
+    e.preventDefault();
+    const anuncio = $("textarea[name='marquee']").val();
+    setCookie("anuncio", anuncio);
+    alert("Promo actualizada");
+  });
+
+  // -- Set value from cookie
+  const cookies = getCookies();
+  const anuncio = decodeURIComponent(cookies?.anuncio ?? "");
+  $("textarea[name='marquee']").val(anuncio);
+});
+
+const getCookies = () => (
+  Object.fromEntries(document.cookie.split(";").map(s => s.split("=")))
+);
+
+const setCookie = (name, val) => {
+  const value = encodeURIComponent(val);
+
+  const date = new Date()
+  date.setFullYear(date.getFullYear() + 1);
+  const expires = date.toUTCString();
+
+  document.cookie = `${name}=${value};expires=${expires};path="/";SameSite=Strict;`;
+};
+</script>
+<style>
+  body {
+    background-image: url("bg.jpg");
+    background-position-x: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #3a2242;
+    padding: 32px;
+  }
+
+  input, textarea {
+    background: #92725d;
+    border: #faeeac 1px solid;
+    border-radius: 5px;
+    color: white;
+  }
+
+  button {
+    color: white;
+    background: #109210;
+    border: #faeeac 1px solid;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      border: #faeeac 1px solid;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    & > * {
+      flex: 1 0 0;
+    }
+  }
+
+  .forms {
+    width: 80%;
+    padding: 32px 16px;
+
+    background: rgba(249, 42, 239, 0.5);
+    border: #dfcbb2 1px solid;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  #marquee {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms">
+      <div>
+      <form action="torneo.html" method="get">
+        <input type="text" name="id" />
+        <button>
+          Iniciar Torneo
+        </button>
+      </form>
+      </div>
+      <div>
+        <form id="marquee" action="">
+          <textarea name="marquee" rows="5" cols="80">
+          </textarea>
+          <div>
+            <button>
+              Guardar Anuncio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
