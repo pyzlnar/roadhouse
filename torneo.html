@@ -23,10 +23,10 @@ $( document ).ready(() => {
 
   const baseUrl = `https://challonge.com/${res[1]}`;
 
-  const ifOneUrl = baseUrl + "/module?show_tournament_name=1";
+  const ifOneUrl = baseUrl + "/module?show_tournament_name=1&show_standings=1&show_live_status=0&tab=standings";
   $("#ifone").attr("src", ifOneUrl);
 
-  const ifTwoUrl = baseUrl + "/module?&show_standings=1&show_live_status=0&tab=standings";
+  const ifTwoUrl = baseUrl + "/module";
   $("#iftwo").attr("src", ifTwoUrl);
 });
 
@@ -80,6 +80,12 @@ iframe {
 }
 
 #iftwo {
+  flex: 1 0 0;
+}
+
+#yt {
+  min-height: 25%;
+  max-height: 50%;
   flex: 1 0 0;
 }
 
@@ -138,7 +144,7 @@ iframe {
       </div>
       <div class="right">
         <iframe
-          style="min-height: 315px"
+          id="yt"
           width="100%"
           src="https://www.youtube.com/embed/7vSg48Kdx34?si=0T-J94SUqFjpbfL0"
           title="YouTube video player"
